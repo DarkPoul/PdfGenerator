@@ -48,7 +48,7 @@ public class ZalikPdfGenerator {
             Document doc = new Document(pdfDoc);
 
             PdfHeaderUtils.addZalikHeader(doc, font, zalik, "ВІДОМІСТЬ ПІДСУМКОВИХ ОЦІНОК ЗА ПЕРШИЙ МОДУЛЬНИЙ КОНТРОЛЬ");
-            FirstModule.generate(doc, font, zalik.students());
+            FirstModule.generate(doc, font, zalik.students(), zalik);
 
 //            PdfHeaderUtils.addDoubleLine(doc, font, zalik, "з ", "(назва дисципліни)");
 
