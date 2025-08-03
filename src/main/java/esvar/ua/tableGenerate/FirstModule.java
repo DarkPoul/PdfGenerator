@@ -45,8 +45,7 @@ public class FirstModule {
 // Додаємо студентів
         for (int i = 0; i < modules.size() - 1; i++) {
             FirstModuleDto s = modules.get(i);
-            boolean isLast = (i == modules.size() - 2);
-            addStudentRow(mainTable, s, isLast);
+            addStudentRow(mainTable, s, true);
         }
 
         doc.add(mainTable);
@@ -106,23 +105,23 @@ public class FirstModule {
 
     }
 
-    private static void addStudentRow(Table table, FirstModuleDto s, boolean noBottomBorder) {
-        Border studentBorder = noBottomBorder ? Border.NO_BORDER : new SolidBorder(0.5f);
+    private static void addStudentRow(Table table, FirstModuleDto s, boolean addBottomBorder) {
+        Border studentBorder = addBottomBorder ? new SolidBorder(0.5f) : Border.NO_BORDER;
 
         table.addCell(new Cell().add(new Paragraph(String.valueOf(s.index())))
                 .setTextAlignment(TextAlignment.CENTER).setFontSize(8)
-                .setBorderBottom(studentBorder));
+                .setBorderTop(studentBorder));
         table.addCell(new Cell().add(new Paragraph(s.pib())).setFontSize(10)
-                .setBorderBottom(studentBorder));
+                .setBorderTop(studentBorder));
         table.addCell(new Cell().add(new Paragraph(s.studentBookNumber()))
                 .setTextAlignment(TextAlignment.CENTER).setFontSize(10)
-                .setBorderBottom(studentBorder));
+                .setBorderTop(studentBorder));
         table.addCell(new Cell().add(new Paragraph(s.mark()))
                 .setTextAlignment(TextAlignment.CENTER).setFontSize(10)
-                .setBorderBottom(studentBorder));
+                .setBorderTop(studentBorder));
         table.addCell(new Cell().add(new Paragraph(""))
                 .setTextAlignment(TextAlignment.CENTER).setFontSize(10)
-                .setBorderBottom(studentBorder));
+                .setBorderTop(studentBorder));
     }
 
     private static void addNumericHeader(Table table) throws IOException {

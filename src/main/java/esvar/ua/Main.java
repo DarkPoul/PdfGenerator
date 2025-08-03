@@ -42,27 +42,7 @@ public class Main {
                 new FirstModuleDto(7, "Мельник М. М.", "КН789012", "80"),
                 new FirstModuleDto(8, "Бондаренко Б. Б.", "КН890123", "75"),
                 new FirstModuleDto(9, "Кравченко К. К.", "КН901234", "90"),
-                new FirstModuleDto(10, "Лисенко Л. Л.", "КН012345", "82"),
-                new FirstModuleDto(11, "Лисенко Л. Л.", "КН012345", "82"),
-                new FirstModuleDto(12, "Іванов І. І.", "КН123456", "91"),
-                new FirstModuleDto(13, "Петренко П. П.", "КН234567", "78"),
-                new FirstModuleDto(14, "Сидоренко С. С.", "КН345678", "85"),
-                new FirstModuleDto(15, "Коваленко К. К.", "КН456789", "92"),
-                new FirstModuleDto(16, "Тарасенко Т. Т.", "КН567890", "88"),
-                new FirstModuleDto(17, "Грищенко Г. Г.", "КН678901", "95"),
-                new FirstModuleDto(18, "Мельник М. М.", "КН789012", "80"),
-                new FirstModuleDto(19, "Бондаренко Б. Б.", "КН890123", "75"),
-                new FirstModuleDto(20, "Кравченко К. К.", "КН901234", "90"),
-                new FirstModuleDto(21, "Лисенко Л. Л.", "КН012345", "82"),
-                new FirstModuleDto(22, "Іванов І. І.", "КН123456", "91"),
-                new FirstModuleDto(23, "Петренко П. П.", "КН234567", "78"),
-                new FirstModuleDto(24, "Сидоренко С. С.", "КН345678", "85"),
-                new FirstModuleDto(25, "Коваленко К. К.", "КН456789", "92"),
-                new FirstModuleDto(26, "Тарасенко Т. Т.", "КН567890", "88"),
-                new FirstModuleDto(27, "Грищенко Г. Г.", "КН678901", "95"),
-                new FirstModuleDto(28, "Мельник М. М.", "КН789012", "80"),
-                new FirstModuleDto(29, "Бондаренко Б. Б.", "КН890123", "75"),
-                new FirstModuleDto(30, "Кравченко К. К.", "КН901234", "90")
+                new FirstModuleDto(10, "Лисенко Л. Л.", "КН012345", "82")
 
         );
 
