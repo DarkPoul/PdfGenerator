@@ -59,7 +59,36 @@ public class Main {
             );
 
             Path pdfPath = outputDir.resolve("zalik_" + count + ".pdf");
-            Path path = generator.generatePdf(data, pdfPath);
+            Path path = generator.generatePdf(data, pdfPath,
+                    "ВІДОМІСТЬ ПІДСУМКОВИХ ОЦІНОК ЗА ПЕРШИЙ МОДУЛЬНИЙ КОНТРОЛЬ", false);
+            System.out.println("PDF створено: " + path.toAbsolutePath());
+        }
+
+        Path outputDirSecond = Path.of("2 модульний контроль");
+        for (int count : counts) {
+            List<FirstModuleDto> students = generateStudents(count);
+
+            DataModelForZalik data = new DataModelForZalik(
+                    "Факультет транспортних та інформаційних технологій",
+                    "Інформаційна, бібліотечна та архівна справа",
+                    "1",
+                    "КІм-1-1-2024",
+                    "2024-2025",
+                    day,
+                    month,
+                    year,
+                    "Забезпечення надійності функціонування комп'ютеризованих систем",
+                    "1-й",
+                    "Другий модульний контроль",
+                    "120",
+                    "Клочан Арсен Євгенійович",
+                    "Гончар Павло Олександрович",
+                    students
+            );
+
+            Path pdfPath = outputDirSecond.resolve("zalik_" + count + ".pdf");
+            Path path = generator.generatePdf(data, pdfPath,
+                    "ВІДОМІСТЬ ПІДСУМКОВИХ ОЦІНОК ЗА ДРУГИЙ МОДУЛЬНИЙ КОНТРОЛЬ", true);
             System.out.println("PDF створено: " + path.toAbsolutePath());
         }
 

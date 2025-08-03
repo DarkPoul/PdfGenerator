@@ -14,6 +14,7 @@ import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import esvar.ua.tableGenerate.FirstModule;
+import esvar.ua.tableGenerate.SecondModule;
 
 import java.awt.*;
 import java.io.IOException;
@@ -24,7 +25,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class ZalikPdfGenerator {
-    public Path generatePdf(DataModelForZalik zalik, Path pdfPath) {
+    public Path generatePdf(DataModelForZalik zalik, Path pdfPath, String typeControlHeader, boolean isSecondModule) {
         try {
             Files.createDirectories(pdfPath.getParent());
             PdfWriter writer = new PdfWriter(pdfPath.toFile());
@@ -44,8 +45,12 @@ public class ZalikPdfGenerator {
 
             Document doc = new Document(pdfDoc);
 
-            PdfHeaderUtils.addZalikHeader(doc, font, zalik, "ВІДОМІСТЬ ПІДСУМКОВИХ ОЦІНОК ЗА ПЕРШИЙ МОДУЛЬНИЙ КОНТРОЛЬ");
-            FirstModule.generate(doc, font, zalik.students(), zalik);
+            PdfHeaderUtils.addZalikHeader(doc, font, zalik, typeControlHeader);
+            if (isSecondModule) {
+                SecondModule.generate(doc, font, zalik.students(), zalik);
+            } else {
+                FirstModule.generate(doc, font, zalik.students(), zalik);
+            }
 
 //            PdfHeaderUtils.addDoubleLine(doc, font, zalik, "з ", "(назва дисципліни)");
 
