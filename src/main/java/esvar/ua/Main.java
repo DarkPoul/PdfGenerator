@@ -4,6 +4,7 @@ import esvar.ua.dto.FirstModuleDto;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,48 +28,56 @@ public class Main {
         );
 
         LocalDate today = LocalDate.now();
-
-        String day   = String.format("%02d", today.getDayOfMonth()); // "01"
+        String day = String.format("%02d", today.getDayOfMonth());
         String month = monthGenitive.get(today.getMonthValue());
         String year  = String.valueOf(today.getYear());
 
-        List<FirstModuleDto> students = List.of(
-                new FirstModuleDto(1, "Іванов І. І.", "КН123456", "91"),
-                new FirstModuleDto(2, "Петренко П. П.", "КН234567", "78"),
-                new FirstModuleDto(3, "Сидоренко С. С.", "КН345678", "85"),
-                new FirstModuleDto(4, "Коваленко К. К.", "КН456789", "92"),
-                new FirstModuleDto(5, "Тарасенко Т. Т.", "КН567890", "88"),
-                new FirstModuleDto(6, "Грищенко Г. Г.", "КН678901", "95"),
-                new FirstModuleDto(7, "Мельник М. М.", "КН789012", "80"),
-                new FirstModuleDto(8, "Бондаренко Б. Б.", "КН890123", "75"),
-                new FirstModuleDto(9, "Кравченко К. К.", "КН901234", "90"),
-                new FirstModuleDto(10, "Лисенко Л. Л.", "КН012345", "82")
-
-        );
-
-        DataModelForZalik data = new DataModelForZalik(
-                "Факультет транспортних та інформаційних технологій",
-                "Інформаційна, бібліотечна та архівна справа",
-                "1",
-                "КІм-1-1-2024",
-                "2024-2025",
-                day,
-                month,
-                year,
-                "Забезпечення надійності функціонування комп'ютеризованих систем",
-                "1-й",
-                "Перший модульний контроль",
-                "120",
-                "Клочан Арсен Євгенійович",
-                "Гончар Павло Олександрович",
-                students
-        );
-
-        Path path = generator.generatePdf(data);
-        System.out.println("PDF створено: " + path.toAbsolutePath());
 
 
+        Path outputDir = Path.of("1 модульний контроль");
+        int[] counts = {10, 20, 30, 40, 50};
 
+        for (int count : counts) {
+            List<FirstModuleDto> students = generateStudents(count);
+
+            DataModelForZalik data = new DataModelForZalik(
+                    "Факультет транспортних та інформаційних технологій",
+                    "Інформаційна, бібліотечна та архівна справа",
+                    "1",
+                    "КІм-1-1-2024",
+                    "2024-2025",
+                    day,
+                    month,
+                    year,
+                    "Забезпечення надійності функціонування комп'ютеризованих систем",
+                    "1-й",
+                    "Перший модульний контроль",
+                    "120",
+                    "Клочан Арсен Євгенійович",
+                    "Гончар Павло Олександрович",
+                    students
+            );
+
+            Path pdfPath = outputDir.resolve("zalik_" + count + ".pdf");
+            Path path = generator.generatePdf(data, pdfPath);
+            System.out.println("PDF створено: " + path.toAbsolutePath());
+        }
 
     }
+
+    private static List<FirstModuleDto> generateStudents(int count) {
+        List<FirstModuleDto> list = new ArrayList<>();
+        for (int i = 1; i <= count; i++) {
+            String pib = "Студент " + i;
+            String book = String.format("КН%06d", i);
+            String mark = String.valueOf(60 + (i % 41));
+            list.add(new FirstModuleDto(i, pib, book, mark));
+        }
+        return list;
+    }
 }
+
+
+
+
+

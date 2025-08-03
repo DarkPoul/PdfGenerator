@@ -24,12 +24,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class ZalikPdfGenerator {
-    public Path generatePdf(DataModelForZalik zalik) {
+    public Path generatePdf(DataModelForZalik zalik, Path pdfPath) {
         try {
-            String timestamp = java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-            Path dir = Path.of("generated");
-            Files.createDirectories(dir); // створити, якщо нема
-            Path pdfPath = dir.resolve("zalik_" + timestamp + ".pdf");
+            Files.createDirectories(pdfPath.getParent());
             PdfWriter writer = new PdfWriter(pdfPath.toFile());
             PdfDocument pdfDoc = new PdfDocument(writer);
 
@@ -90,7 +87,7 @@ public class ZalikPdfGenerator {
 //
 //            doc.add(table);
             doc.close();
-            Desktop.getDesktop().open(pdfPath.toFile());
+//            Desktop.getDesktop().open(pdfPath.toFile());
             return pdfPath;
         } catch (IOException e) {
             throw new RuntimeException("Failed to generate PDF", e);
