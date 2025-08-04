@@ -30,7 +30,7 @@ public class SecondModule {
         headerTable.addCell(new Cell().setBorderBottom(Border.NO_BORDER).setPadding(0).setVerticalAlignment(VerticalAlignment.MIDDLE).add(new Paragraph("№\nз/п")).setFont(FontLoader.regular()).setFontSize(8).setTextAlignment(TextAlignment.CENTER));
         headerTable.addCell(new Cell().setBorderBottom(Border.NO_BORDER).setPadding(0).setVerticalAlignment(VerticalAlignment.MIDDLE).add(new Paragraph("Прізвище та ініціали студента")).setFont(FontLoader.regular()).setFontSize(10).setTextAlignment(TextAlignment.CENTER));
         headerTable.addCell(new Cell().setBorderBottom(Border.NO_BORDER).setPadding(0).setVerticalAlignment(VerticalAlignment.MIDDLE).add(new Paragraph("Номер залікової книжки")).setFont(FontLoader.regular()).setFontSize(10).setTextAlignment(TextAlignment.CENTER));
-        headerTable.addCell(new Cell().setBorderBottom(Border.NO_BORDER).setPadding(0).setVerticalAlignment(VerticalAlignment.MIDDLE).add(new Paragraph("Кількість балів за результатами другого модуля (від 0 до 30 балів)")).setFont(FontLoader.regular()).setFontSize(10).setTextAlignment(TextAlignment.CENTER));
+        headerTable.addCell(new Cell().setBorderBottom(Border.NO_BORDER).setPadding(0).setVerticalAlignment(VerticalAlignment.MIDDLE).add(new Paragraph("Кількість балів за результатами двох модулів (від 0 до 60 балів)")).setFont(FontLoader.regular()).setFontSize(10).setTextAlignment(TextAlignment.CENTER));
         headerTable.addCell(new Cell().setBorderBottom(Border.NO_BORDER).setPadding(0).setVerticalAlignment(VerticalAlignment.MIDDLE).add(new Paragraph("Підпис викладача")).setFont(FontLoader.regular()).setFontSize(10).setTextAlignment(TextAlignment.CENTER));
 
 
@@ -89,9 +89,22 @@ public class SecondModule {
         signTable.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
         signTable.addCell(new Cell().add(new Paragraph("(прізвище,ініціали)").setFontSize(8).setTextAlignment(TextAlignment.CENTER)).setBorder(Border.NO_BORDER));
 
+        Paragraph results_of_semester_performance = new Paragraph("Підсумки семестрової успішності")
+                .setFont(FontLoader.bold())
+                .setFontSize(12)
+                .setTextAlignment(TextAlignment.CENTER);
+
+        Table results_of_semester_performance_Table = new Table(new float[]{1,1}).useAllAvailableWidth();
+        results_of_semester_performance_Table.addCell(new Cell().add(new Paragraph("Кількість студентів")).setFont(FontLoader.bold()).setFontSize(10).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
+        results_of_semester_performance_Table.addCell(new Cell().add(new Paragraph("Сума балів")).setFont(FontLoader.bold()).setFontSize(10).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
+
+
 
         Div finalBlock = new Div()
                 .add(lastRowTable)
+                .add(new Paragraph(""))
+                .add(results_of_semester_performance)
+                .add(results_of_semester_performance_Table)
                 .add(new Paragraph(""))
                 .add(signTable)
                 .setKeepTogether(true);

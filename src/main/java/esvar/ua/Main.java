@@ -60,7 +60,7 @@ public class Main {
 
             Path pdfPath = outputDir.resolve("zalik_" + count + ".pdf");
             Path path = generator.generatePdf(data, pdfPath,
-                    "ВІДОМІСТЬ ПІДСУМКОВИХ ОЦІНОК ЗА ПЕРШИЙ МОДУЛЬНИЙ КОНТРОЛЬ", false);
+                    "ВІДОМІСТЬ ПІДСУМКОВИХ ОЦІНОК ЗА ПЕРШИЙ МОДУЛЬНИЙ КОНТРОЛЬ", TableType.FIRST_MODULE);
             System.out.println("PDF створено: " + path.toAbsolutePath());
         }
 
@@ -88,7 +88,36 @@ public class Main {
 
             Path pdfPath = outputDirSecond.resolve("zalik_" + count + ".pdf");
             Path path = generator.generatePdf(data, pdfPath,
-                    "ВІДОМІСТЬ ПІДСУМКОВИХ ОЦІНОК ЗА ДРУГИЙ МОДУЛЬНИЙ КОНТРОЛЬ", true);
+                    "ВІДОМІСТЬ ПІДСУМКОВИХ ОЦІНОК ЗА ДРУГИЙ МОДУЛЬНИЙ КОНТРОЛЬ", TableType.SECOND_MODULE);
+            System.out.println("PDF створено: " + path.toAbsolutePath());
+        }
+
+        Path outputDirZalik = Path.of("залік");
+
+        for (int count : counts) {
+            List<FirstModuleDto> students = generateStudents(count);
+
+            DataModelForZalik data = new DataModelForZalik(
+                    "Факультет транспортних та інформаційних технологій",
+                    "Інформаційна, бібліотечна та архівна справа",
+                    "1",
+                    "КІм-1-1-2024",
+                    "2024-2025",
+                    day,
+                    month,
+                    year,
+                    "Забезпечення надійності функціонування комп'ютеризованих систем",
+                    "1-й",
+                    "Залік",
+                    "120",
+                    "Клочан Арсен Євгенійович",
+                    "Гончар Павло Олександрович",
+                    students
+            );
+
+            Path pdfPath = outputDirZalik.resolve("zalik_" + count + ".pdf");
+            Path path = generator.generatePdf(data, pdfPath,
+                    "ВІДОМІСТЬ ПІДСУМКОВИХ ОЦІНОК ЗА ЗАЛІК", TableType.ZALIK);
             System.out.println("PDF створено: " + path.toAbsolutePath());
         }
 
