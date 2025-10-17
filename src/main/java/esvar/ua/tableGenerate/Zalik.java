@@ -12,8 +12,8 @@ import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.properties.VerticalAlignment;
 import esvar.ua.DataModelForZalik;
-import esvar.ua.FontLoader;
-import esvar.ua.dto.FirstModuleDto;
+import esvar.ua.settings.FontLoader;
+import esvar.ua.dto.FirstAndSecondModuleDto;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class Zalik {
 
-    public static void generate(Document doc, PdfFont font, List<FirstModuleDto> students, DataModelForZalik zalik) throws IOException {
+    public static void generate(Document doc, PdfFont font, List<FirstAndSecondModuleDto> students, DataModelForZalik zalik) throws IOException {
 
         Table headerTable = new Table(UnitValue.createPercentArray(new float[]{5, 35, 20, 10, 10, 10, 5, 5}))
                 .useAllAvailableWidth();
@@ -78,13 +78,13 @@ public class Zalik {
         addNumericHeader(mainTable);
 
         for (int i = 0; i < students.size() - 1; i++) {
-            FirstModuleDto s = students.get(i);
+            FirstAndSecondModuleDto s = students.get(i);
             addStudentRow(mainTable, s, true);
         }
 
         doc.add(mainTable);
 
-        FirstModuleDto last = students.get(students.size() - 1);
+        FirstAndSecondModuleDto last = students.get(students.size() - 1);
         Table lastRowTable = new Table(UnitValue.createPercentArray(new float[]{5, 35, 20, 10, 10, 10, 5, 5}))
                 .useAllAvailableWidth();
 
@@ -138,7 +138,7 @@ public class Zalik {
         doc.add(finalBlock);
     }
 
-    private static void addStudentRow(Table table, FirstModuleDto s, boolean addBottomBorder) {
+    private static void addStudentRow(Table table, FirstAndSecondModuleDto s, boolean addBottomBorder) {
         Border studentBorder = addBottomBorder ? new SolidBorder(0.5f) : Border.NO_BORDER;
         int mark100 = parseIntSafe(s.mark());
         DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyyy");

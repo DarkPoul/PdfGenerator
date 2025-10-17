@@ -1,4 +1,4 @@
-package esvar.ua;
+package esvar.ua.settings;
 
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.font.PdfFont;

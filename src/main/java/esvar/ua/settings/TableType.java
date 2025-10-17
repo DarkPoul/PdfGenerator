@@ -1,4 +1,4 @@
-package esvar.ua;
+package esvar.ua.settings;
 
 public enum TableType {
     FIRST_MODULE,

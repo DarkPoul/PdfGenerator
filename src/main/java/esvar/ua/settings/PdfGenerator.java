@@ -1,4 +1,4 @@
-package esvar.ua;
+package esvar.ua.settings;
 
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
@@ -9,18 +9,18 @@ import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.*;
-import esvar.ua.tableGenerate.FirstModule;
+import esvar.ua.DataModelForZalik;
+import esvar.ua.generate.header.GenerateHeader;
+import esvar.ua.tableGenerate.FirstAndSecondModule;
 import esvar.ua.tableGenerate.SecondModule;
 import esvar.ua.tableGenerate.Zalik;
 
-import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class ZalikPdfGenerator {
+public class PdfGenerator {
     public Path generatePdf(DataModelForZalik zalik, Path pdfPath, String typeControlHeader, TableType tableType) {
         try {
             Files.createDirectories(pdfPath.getParent());
@@ -28,7 +28,7 @@ public class ZalikPdfGenerator {
             PdfDocument pdfDoc = new PdfDocument(writer);
 
             PdfFont font;
-            try (InputStream fontStream = ZalikPdfGenerator.class.getResourceAsStream("/fonts/times.ttf")) {
+            try (InputStream fontStream = PdfGenerator.class.getResourceAsStream("/fonts/times.ttf")) {
                 if (fontStream != null) {
                     FontProgram fp = FontProgramFactory.createFont(fontStream.readAllBytes());
                     font = PdfFontFactory.createFont(fp, PdfEncodings.IDENTITY_H);
@@ -41,10 +41,15 @@ public class ZalikPdfGenerator {
 
             Document doc = new Document(pdfDoc);
 
-            PdfHeaderUtils.addZalikHeader(doc, font, zalik, typeControlHeader);
+
+
+            GenerateHeader.generateHeader(doc, font, zalik, typeControlHeader);
+
+
+
             switch (tableType) {
-                case SECOND_MODULE -> SecondModule.generate(doc, font, zalik.students(), zalik);
-                case FIRST_MODULE -> FirstModule.generate(doc, font, zalik.students(), zalik);
+                case FIRST_MODULE -> FirstAndSecondModule.generate(doc, font, zalik.students(), zalik.firstTeacherName(), true);
+                case SECOND_MODULE -> FirstAndSecondModule.generate(doc, font, zalik.students(), zalik.firstTeacherName(), false);
                 case ZALIK -> Zalik.generate(doc, font, zalik.students(), zalik);
             }
 

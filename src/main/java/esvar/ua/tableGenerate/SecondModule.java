@@ -12,15 +12,15 @@ import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.properties.VerticalAlignment;
 import esvar.ua.DataModelForZalik;
-import esvar.ua.FontLoader;
-import esvar.ua.dto.FirstModuleDto;
+import esvar.ua.settings.FontLoader;
+import esvar.ua.dto.FirstAndSecondModuleDto;
 
 import java.io.IOException;
 import java.util.List;
 
 public class SecondModule {
 
-    public static void generate(Document doc, PdfFont font, List<FirstModuleDto> modules, DataModelForZalik zalik) throws IOException {
+    public static void generate(Document doc, PdfFont font, List<FirstAndSecondModuleDto> modules, DataModelForZalik zalik) throws IOException {
 
         Table headerTable = new Table(UnitValue.createPercentArray(new float[]{5, 35, 20, 20, 20}))
                 .useAllAvailableWidth();
@@ -42,13 +42,13 @@ public class SecondModule {
         addNumericHeader(mainTable);
 
         for (int i = 0; i < modules.size() - 1; i++) {
-            FirstModuleDto s = modules.get(i);
+            FirstAndSecondModuleDto s = modules.get(i);
             addStudentRow(mainTable, s, true);
         }
 
         doc.add(mainTable);
 
-        FirstModuleDto last = modules.get(modules.size() - 1);
+        FirstAndSecondModuleDto last = modules.get(modules.size() - 1);
         Table lastRowTable = new Table(UnitValue.createPercentArray(new float[]{5, 35, 20, 20, 20}))
                 .useAllAvailableWidth();
 
@@ -99,6 +99,25 @@ public class SecondModule {
         results_of_semester_performance_Table.addCell(new Cell().add(new Paragraph("Сума балів")).setFont(FontLoader.bold()).setFontSize(10).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
 
 
+        int count20to60 = 0;
+        int sum20to60 = 0;
+        int count0to19 = 0;
+        int sum0to19 = 0;
+        for (FirstAndSecondModuleDto dto : modules) {
+            int mark = parseIntSafe(dto.mark());
+            if (mark >= 20 && mark <= 60) {
+                count20to60++;
+                sum20to60 += mark;
+            } else if (mark < 20) {
+                count0to19++;
+                sum0to19 += mark;
+            }
+        }
+        results_of_semester_performance_Table.addCell(new Cell().add(new Paragraph(String.valueOf(count20to60))).setFont(FontLoader.regular()).setFontSize(10).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
+        results_of_semester_performance_Table.addCell(new Cell().add(new Paragraph(String.valueOf(sum20to60))).setFont(FontLoader.regular()).setFontSize(10).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
+        results_of_semester_performance_Table.addCell(new Cell().add(new Paragraph(String.valueOf(count0to19))).setFont(FontLoader.regular()).setFontSize(10).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
+        results_of_semester_performance_Table.addCell(new Cell().add(new Paragraph(String.valueOf(sum0to19))).setFont(FontLoader.regular()).setFontSize(10).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER));
+
 
         Div finalBlock = new Div()
                 .add(lastRowTable)
@@ -113,7 +132,7 @@ public class SecondModule {
 
     }
 
-    private static void addStudentRow(Table table, FirstModuleDto s, boolean addBottomBorder) {
+    private static void addStudentRow(Table table, FirstAndSecondModuleDto s, boolean addBottomBorder) {
         Border studentBorder = addBottomBorder ? new SolidBorder(0.5f) : Border.NO_BORDER;
 
         table.addCell(new Cell().add(new Paragraph(String.valueOf(s.index())))
@@ -167,6 +186,14 @@ public class SecondModule {
                 .setFont(FontLoader.bold())
                 .setFontSize(10)
                 .setTextAlignment(TextAlignment.CENTER));
+    }
+
+    private static int parseIntSafe(String value) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 
 }

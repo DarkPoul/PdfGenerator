@@ -1,6 +1,6 @@
 package esvar.ua.dto;
 
-public record FirstModuleDto (
+public record FirstAndSecondModuleDto(
     int index,
     String pib,
     String studentBookNumber,

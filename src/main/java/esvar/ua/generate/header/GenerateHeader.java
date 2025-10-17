@@ -1,6 +1,7 @@
-package esvar.ua;
+package esvar.ua.generate.header;
 
 import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.pdf.canvas.draw.SolidLine;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
@@ -9,14 +10,14 @@ import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
-import com.itextpdf.kernel.pdf.canvas.draw.SolidLine;
 import com.itextpdf.layout.properties.UnitValue;
+import esvar.ua.DataModelForZalik;
+import esvar.ua.settings.FontLoader;
 
 import java.io.IOException;
 
-public class PdfHeaderUtils {
-
-    public static void addZalikHeader(Document doc, PdfFont font, DataModelForZalik zalik, String typeControlHeader) throws IOException {
+public class GenerateHeader {
+    public static void generateHeader(Document doc, PdfFont font, DataModelForZalik zalik, String typeControlHeader) throws IOException {
         doc.setFont(font);
 
         doc.add(new Paragraph("НАЦІОНАЛЬНИЙ ТРАНСПОРТНИЙ УНІВЕРСИТЕТ")
@@ -340,23 +341,4 @@ public class PdfHeaderUtils {
         doc.add(emptyParagraph);
 
     }
-
-    public static void addDoubleLine(Document doc, PdfFont font, DataModelForZalik zalik, String firstText, String bottomText) throws IOException {
-        doc.setFont(font);
-        doc.add(new Paragraph(firstText + " " + zalik.disciplineTitle())
-                .setFont(FontLoader.regular())
-                .setFontSize(11));
-        SolidLine solidLine = new SolidLine(1f);
-        LineSeparator line = new LineSeparator(solidLine);
-        line.setMarginTop(-6);
-        line.setMarginBottom(0);
-        doc.add(line);
-        doc.add(new Paragraph(bottomText)
-                .setFont(FontLoader.regular())
-                .setFontSize(8)
-                .setTextAlignment(TextAlignment.CENTER)
-                .setMarginTop(-1));
-    }
-
-
 }

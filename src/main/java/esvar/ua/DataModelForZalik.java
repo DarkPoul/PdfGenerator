@@ -1,6 +1,6 @@
 package esvar.ua;
 
-import esvar.ua.dto.FirstModuleDto;
+import esvar.ua.dto.FirstAndSecondModuleDto;
 
 import java.util.List;
 
@@ -19,6 +19,6 @@ public record DataModelForZalik(
         String totalHours,
         String firstTeacherName,
         String secondTeacherName,
-        List<FirstModuleDto> students
+        List<FirstAndSecondModuleDto> students
 ) {}
 
